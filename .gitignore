@@ -5,3 +5,6 @@ dist
 .env
 .env.*
 qa-output
+
+.vercel
+.env*
