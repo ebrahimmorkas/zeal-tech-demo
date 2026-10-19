@@ -6,7 +6,7 @@ import { groupCompanies } from '../data/groupCompanies';
 import { news } from '../data/news';
 import { resources } from '../data/resources';
 
-const DEMOS = ['demo1', 'demo2', 'demo3', 'demo4', 'demo5'] as const;
+const DEMOS = ['demo1', 'demo2', 'demo3', 'demo4', 'demo5', 'demo6', 'demo7', 'demo8', 'demo9', 'demo10'] as const;
 
 function renderAt(path: string) {
   return render(
@@ -27,7 +27,7 @@ async function demoRoot(container: HTMLElement) {
 afterEach(cleanup);
 
 describe('portal', () => {
-  it('renders all five concept cards with preview links', () => {
+  it('renders all ten concept cards with preview links', () => {
     renderAt('/');
     for (const d of DEMOS) {
       expect(screen.getAllByRole('link', { name: /preview/i }).some((a) => a.getAttribute('href') === `/${d}`)).toBe(true);
@@ -35,7 +35,7 @@ describe('portal', () => {
   });
 
   it('shows the global not-found page for unknown prefixes', () => {
-    renderAt('/demo6/about-us');
+    renderAt('/demo11/about-us');
     expect(screen.getByRole('heading', { level: 1, name: /doesn’t exist/i })).toBeInTheDocument();
   });
 });
@@ -57,7 +57,7 @@ describe.each(DEMOS)('%s routing', (demo) => {
 
     // Every internal link must stay within this demo (or go back to the portal).
     const hrefs = Array.from(container.querySelectorAll('a[href^="/"]')).map((a) => a.getAttribute('href')!);
-    const stray = hrefs.filter((h) => h !== '/' && !h.startsWith(`/${demo}`) && !h.startsWith('/images/'));
+    const stray = hrefs.filter((h) => h !== '/' && h !== `/${demo}` && !h.startsWith(`/${demo}/`) && !h.startsWith(`/${demo}?`) && !h.startsWith('/images/'));
     expect(stray).toEqual([]);
   });
 

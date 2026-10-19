@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { concepts } from './concepts';
 
-/** Shown for any URL outside "/" and the five demo prefixes (e.g. /demo6). */
+/** Shown for any URL outside "/" and the ten demo prefixes (e.g. /demo11). */
 export default function GlobalNotFound() {
   const { pathname } = useLocation();
   usePageMeta('Page not found', 'This address does not match any of the design concepts.');

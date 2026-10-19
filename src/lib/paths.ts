@@ -1,4 +1,4 @@
-export type DemoBase = '/demo1' | '/demo2' | '/demo3' | '/demo4' | '/demo5';
+export type DemoBase = '/demo1' | '/demo2' | '/demo3' | '/demo4' | '/demo5' | '/demo6' | '/demo7' | '/demo8' | '/demo9' | '/demo10';
 
 /** Builds the full path set for a demo so every internal link keeps its prefix. */
 export function makePaths(base: DemoBase) {

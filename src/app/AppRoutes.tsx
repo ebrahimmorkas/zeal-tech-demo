@@ -11,6 +11,11 @@ const Demo2 = lazy(() => import('../demos/demo2'));
 const Demo3 = lazy(() => import('../demos/demo3'));
 const Demo4 = lazy(() => import('../demos/demo4'));
 const Demo5 = lazy(() => import('../demos/demo5'));
+const Demo6 = lazy(() => import('../demos/demo6'));
+const Demo7 = lazy(() => import('../demos/demo7'));
+const Demo8 = lazy(() => import('../demos/demo8'));
+const Demo9 = lazy(() => import('../demos/demo9'));
+const Demo10 = lazy(() => import('../demos/demo10'));
 
 function Loading() {
   return (
@@ -33,6 +38,11 @@ export function AppRoutes() {
           <Route path="/demo3/*" element={<Demo3 />} />
           <Route path="/demo4/*" element={<Demo4 />} />
           <Route path="/demo5/*" element={<Demo5 />} />
+          <Route path="/demo6/*" element={<Demo6 />} />
+          <Route path="/demo7/*" element={<Demo7 />} />
+          <Route path="/demo8/*" element={<Demo8 />} />
+          <Route path="/demo9/*" element={<Demo9 />} />
+          <Route path="/demo10/*" element={<Demo10 />} />
           <Route path="*" element={<GlobalNotFound />} />
         </Routes>
       </Suspense>

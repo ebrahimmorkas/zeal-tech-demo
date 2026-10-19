@@ -43,7 +43,7 @@ function Preview({ c }: { c: Concept }) {
 }
 
 export default function Portal() {
-  usePageMeta('Website Design Concepts', `Five corporate website design concepts for ${BRAND.name}, prepared for client review.`);
+  usePageMeta('Website Design Concepts', `Ten corporate website design concepts for ${BRAND.name}, prepared for client review.`);
   return (
     <div className="min-h-screen bg-[#111318] text-[#e9e3d6] font-pt-sans antialiased">
       <header className="mx-auto max-w-[1320px] px-5 sm:px-8 pt-8 flex items-center justify-between gap-4">
@@ -58,7 +58,7 @@ export default function Portal() {
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <p className="text-[13px] uppercase tracking-[0.22em] text-[#c9b48a]">Corporate website · Design concepts</p>
           <h1 className="mt-6 font-pt-serif text-[48px] sm:text-[72px] lg:text-[96px] leading-[0.98] tracking-[-0.01em] max-w-5xl">
-            Five directions for the <em className="text-[#c9b48a]">{BRAND.shortName}</em> corporate website.
+            Ten directions for the <em className="text-[#c9b48a]">{BRAND.shortName}</em> corporate website.
           </h1>
           <p className="mt-8 max-w-2xl text-[18px] leading-relaxed text-white/65">
             Each concept is a complete, working website with all ten sections: About Us, Group Companies, Partner With Us, News, Future Roadmap, Gallery, Leadership, Resource Centre, Contact and an assistant demo. Open any concept, navigate freely, then return here to compare.

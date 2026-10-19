@@ -7,7 +7,7 @@ import { chromium } from 'playwright-core';
 
 const BASE = process.argv[2] || 'http://localhost:4199';
 const CHROME = process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-const demos = ['demo1', 'demo2', 'demo3', 'demo4', 'demo5'];
+const demos = process.env.DEMOS ? process.env.DEMOS.split(',') : ['demo1', 'demo2', 'demo3', 'demo4', 'demo5', 'demo6', 'demo7', 'demo8', 'demo9', 'demo10'];
 const sections = ['', 'about-us', 'group-companies', 'group-companies/nexora-energy-solutions', 'partner-with-us', 'partner-with-us?type=vendor', 'news', 'news/inside-our-precision-facility', 'future-roadmap', 'gallery', 'leadership', 'resource-centre', 'resource-centre/iot-condition-monitoring-primer', 'contact', 'missing-page'];
 
 const failures = [];
@@ -26,7 +26,7 @@ async function sweep(width, height) {
   page.on('console', (m) => m.type() === 'error' && errors.push(`console: ${m.text()}`));
   page.on('requestfailed', (r) => errors.push(`requestfailed: ${r.url()}`));
 
-  const urls = ['/', '/demo6', ...demos.flatMap((d) => sections.map((s) => `/${d}${s ? '/' + s : ''}`))];
+  const urls = ['/', '/demo11', ...demos.flatMap((d) => sections.map((s) => `/${d}${s ? '/' + s : ''}`))];
   for (const u of urls) {
     errors = [];
     const res = await page.goto(BASE + u, { waitUntil: 'networkidle' });
@@ -40,7 +40,7 @@ async function sweep(width, height) {
       const imgs = Array.from(document.images).filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.currentSrc || i.src);
       const stray = Array.from(document.querySelectorAll('a[href^="/"]'))
         .map((a) => a.getAttribute('href'))
-        .filter((h) => demo && h !== '/' && !h.startsWith('/' + demo));
+        .filter((h) => demo && h !== '/' && h !== '/' + demo && !h.startsWith('/' + demo + '/') && !h.startsWith('/' + demo + '?'));
       return {
         demo: root?.getAttribute('data-demo') ?? null,
         overflow: document.documentElement.scrollWidth - window.innerWidth,
@@ -49,8 +49,8 @@ async function sweep(width, height) {
         h1: document.querySelectorAll('h1').length,
         title: document.title,
       };
-    }, u.match(/^\/(demo[1-5])/)?.[1] ?? null);
-    const expected = u.match(/^\/(demo[1-5])/)?.[1] ?? null;
+    }, u.match(/^\/(demo(?:10|[1-9]))(?:\/|$)/)?.[1] ?? null);
+    const expected = u.match(/^\/(demo(?:10|[1-9]))(?:\/|$)/)?.[1] ?? null;
     if (r.demo !== expected) fail(`${width}px ${u}: rendered layout ${r.demo}, expected ${expected}`);
     if (r.overflow > 1) fail(`${width}px ${u}: horizontal overflow ${r.overflow}px`);
     if (r.broken.length) fail(`${width}px ${u}: broken images ${r.broken.join(', ')}`);

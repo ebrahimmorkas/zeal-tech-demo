@@ -1,6 +1,6 @@
 # NEXORA GROUP — Corporate Website Design Concepts
 
-Five complete, visually distinct corporate-group website concepts in **one** React application, served from **one** Vercel deployment.
+Ten complete, visually distinct corporate-group website concepts in **one** React application, served from **one** Vercel deployment.
 
 | Route | Concept |
 | --- | --- |
@@ -10,6 +10,11 @@ Five complete, visually distinct corporate-group website concepts in **one** Rea
 | `/demo3/*` | **Contemporary Editorial Luxury** — Fraunces + Manrope, warm paper / ink / oxblood, centred masthead + side index, magazine cover hero, letter-style forms |
 | `/demo4/*` | **Next-Generation Technology Group** — Space Grotesk + Inter + JetBrains Mono, void / indigo / teal, floating capsule nav, interactive network hero, multi-step partner wizard |
 | `/demo5/*` | **Human-Centered Global Enterprise** — Plus Jakarta Sans + Lora, teal / coral / sun on sand, rounded modular layout, photo-mosaic hero, conversational forms, FAQ |
+| `/demo6/*` | **Swiss Precision** — Archivo (wide/narrow cuts), white / black / signal red, fixed left index sidebar, toggleable 12-column grid overlay, clip-path wipe reveals, coverage matrix, proportional time scale |
+| `/demo7/*` | **Living Earth** — DM Serif Display + DM Sans, forest / lichen / moss / lime, split navigation around a centred logo, arch-masked imagery, wave dividers, “growth rings” roadmap |
+| `/demo8/*` | **Bold Studio** — Syne + Work Sans + Space Mono, cream / ink / yellow / cobalt / pink / mint, neo-brutalist hard shadows, stickers, marquee, kanban roadmap, speech-bubble messages |
+| `/demo9/*` | **Noir Cinema** — Bodoni Moda + Jost, black / bone monochrome, letterboxed Ken Burns hero, film grain, scroll-linked word reveals, pinned horizontal company reel, full-screen image-preview menu |
+| `/demo10/*` | **Lumen Bento** — Sora + Figtree, lilac / violet / mint / peach, frosted bento tiles with 3D tilt, magnifying dock (desktop), Ctrl/⌘K command palette, live form-completion meter |
 
 Every demo implements the same ten sections, each with its own layout and page design:
 
@@ -33,7 +38,7 @@ Other commands:
 ```bash
 npm run build        # type-check + production build into dist/
 npm run preview      # serve the production build (http://localhost:4173)
-npm test             # Vitest: routing for all 5 demos × all pages, prefix-preserving links, forms, chat engine
+npm test             # Vitest: routing for all 10 demos × all pages, prefix-preserving links, forms, chat engine
 ```
 
 Optional browser QA (uses an installed Chrome via `playwright-core`; no browser download):
@@ -42,6 +47,7 @@ Optional browser QA (uses an installed Chrome via `playwright-core`; no browser 
 npm run build && npx vite preview --port 4199
 node scripts/qa.mjs http://localhost:4199          # every route at 1440/768/375px + interaction flows
 node scripts/previews.mjs http://localhost:4199    # regenerate portal screenshots (then convert PNG → JPG)
+DEMOS=demo6,demo7 node scripts/qa.mjs http://localhost:4199   # QA a subset of concepts
 ```
 
 Set `CHROME_PATH` if Chrome is not at `C:/Program Files/Google/Chrome/Application/chrome.exe`.
@@ -56,7 +62,7 @@ Set `CHROME_PATH` if Chrome is not at `C:/Program Files/Google/Chrome/Applicatio
    - No environment variables are required.
 4. Click **Deploy**. Vercel returns one URL such as `https://your-project.vercel.app`, which serves:
    - `https://your-project.vercel.app/` — portal
-   - `https://your-project.vercel.app/demo1` … `/demo5` and every nested page.
+   - `https://your-project.vercel.app/demo1` … `/demo10` and every nested page.
 
 CLI alternative:
 
@@ -68,7 +74,7 @@ vercel --prod   # production deployment
 
 ### How deep links work
 
-`vercel.json` contains a single SPA rewrite: `/(.*) → /index.html`. Vercel serves real files first (`/assets/*`, `/images/*`, `/previews/*`), and every other path loads the app, so opening or refreshing a URL such as `/demo3/group-companies/nexora-energy-solutions` works. React Router then picks the concept from the URL prefix. Unknown paths show a styled not-found page: the global page for unknown prefixes such as `/demo6`, and each concept's own 404 for unknown pages inside a demo. Because this is an SPA, those not-found pages return HTTP 200, not 404. For true 404 status codes you would need pre-rendering or server-side rendering.
+`vercel.json` contains a single SPA rewrite: `/(.*) → /index.html`. Vercel serves real files first (`/assets/*`, `/images/*`, `/previews/*`), and every other path loads the app, so opening or refreshing a URL such as `/demo3/group-companies/nexora-energy-solutions` works. React Router then picks the concept from the URL prefix. Unknown paths show a styled not-found page: the global page for unknown prefixes such as `/demo11`, and each concept's own 404 for unknown pages inside a demo. Because this is an SPA, those not-found pages return HTTP 200, not 404. For true 404 status codes you would need pre-rendering or server-side rendering.
 
 ## Architecture
 
@@ -91,7 +97,7 @@ src/
   lib/                     validation, chat engine, paths (prefix-safe links), downloads, icons
 ```
 
-Design isolation: each concept's visual tokens are namespaced in `tailwind.config.js` (`d1-*`, `d2-*`, … colours and font families). Pages are separate files per concept, so editing Demo 2 cannot change Demo 1. Business logic is shared: validation, the form state machine, the chat engine, the data and the lightbox behaviour. Every internal link is built from `makePaths('/demoN')`, which keeps the prefix. The tests check this on every page.
+Design isolation: each concept's visual tokens are namespaced in `tailwind.config.js` (`d1-*` … `d10-*` colours and font families). Pages are separate files per concept, so editing Demo 2 cannot change Demo 1. Business logic is shared: validation, the form state machine, the chat engine, the data and the lightbox behaviour. Every internal link is built from `makePaths('/demoN')`, which keeps the prefix. The tests check this on every page.
 
 Each concept is a separate code-split chunk (about 80–90 kB, or about 20 kB gzipped), so visitors only download the concept they open.
 
